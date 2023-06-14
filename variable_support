@@ -4,7 +4,7 @@ function evaluateExpression(expression)
 
 function parseExpression(input) {
   let index = 0;
-  const variables = {}; // Хранилище переменных
+  const variables = {}; 
 
   function parseUnaryMinus() {
     if (input[index] === "-") {
@@ -29,9 +29,9 @@ function parseExpression(input) {
   }
 
   function parseSubexpression() {
-    index++; // Пропускаем открывающую скобку "("
+    index++; 
     const expression = parseExpression();
-    index++; // Пропускаем закрывающую скобку ")"
+    index++; 
     return expression;
   }
 
