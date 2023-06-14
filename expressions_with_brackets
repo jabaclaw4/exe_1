@@ -24,9 +24,9 @@ function parseExpression(input) {
   }
 
   function parseSubexpression() {
-    index++; // Пропускаем открывающую скобку "("
+    index++; 
     const expression = parseExpression();
-    index++; // Пропускаем закрывающую скобку ")"
+    index++;
     return expression;
   }
 
