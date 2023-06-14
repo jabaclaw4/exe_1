@@ -1,0 +1,40 @@
+function evaluateExpression(expression)
+  return expression;
+}
+
+function parseExpression(input) {
+  let index = 0;
+  const variables = {}; // Хранилище переменных
+
+  function parseUnaryMinus() {
+    if (input[index] === "-") {
+      index++;
+      const expression = parseExpression();
+      return "-" + expression;
+    }
+    return parseNumberOrVariable();
+  }
+
+  function parseNumberOrVariable() {
+    let numberOrVariable = "";
+    while (
+      index < input.length &&
+      /[0-9.]/.test(input[index]) ||
+      /[a-zA-Z]/.test(input[index])
+    ) {
+      numberOrVariable += input[index];
+      index++;
+    }
+    return numberOrVariable;
+  }
+
+  function parseSubexpression() {
+    index++; // Пропускаем открывающую скобку "("
+    const expression = parseExpression();
+    index++; // Пропускаем закрывающую скобку ")"
+    return expression;
+  }
+
+  function parseBinaryExpression() {
+    const left = parseExpression();
+    const operator
