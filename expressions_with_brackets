@@ -1,0 +1,54 @@
+function evaluateExpression(expression) {
+  return expression;
+}
+
+function parseExpression(input) {
+  let index = 0;
+
+  function parseUnaryMinus() {
+    if (input[index] === "-") {
+      index++;
+      const expression = parseExpression();
+      return "-" + expression;
+    }
+    return parseNumber();
+  }
+
+  function parseNumber() {
+    let number = "";
+    while (index < input.length && /[0-9.]/.test(input[index])) {
+      number += input[index];
+      index++;
+    }
+    return number;
+  }
+
+  function parseSubexpression() {
+    index++; // Пропускаем открывающую скобку "("
+    const expression = parseExpression();
+    index++; // Пропускаем закрывающую скобку ")"
+    return expression;
+  }
+
+  function parseBinaryExpression() {
+    const left = parseExpression();
+    const operator = input[index];
+    index++;
+    const right = parseExpression();
+    return left + operator + right;
+  }
+
+  function parseExpression() {
+    if (input[index] === "(") {
+      return parseSubexpression();
+    }
+    return parseUnaryMinus();
+  }
+
+  return parseExpression();
+}
+
+// Пример использования
+const inputExpression = "(-2 + 4) * 5";
+const result = evaluateExpression(parseExpression(inputExpression));
+console.log(result); // Output: -10
